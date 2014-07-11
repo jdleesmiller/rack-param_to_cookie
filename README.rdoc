@@ -10,7 +10,7 @@ Rack::ParamToCookie is a rack middleware that extracts request parameters from r
 1. A user clicks through the link and comes to your site.
 1. The Rack::ParamToCookie middleware finds the +ref+ parameter and stores it in a cookie for this user.
 1. The user browses around for a while and eventually signs up.
-1. Your signup action recovers the referral code, +123ABC+, from the cookie, and you mark it as a successful referral from your partner.
+1. Your sign up action recovers the referral code, +123ABC+, from the cookie, and you mark it as a successful referral from your partner.
 1. $$$$!
 
 == Usage
@@ -28,7 +28,7 @@ This tells Rack::ParamToCookie to capture a request parameter called +ref+, stor
     'aff' => {cookie_name: 'affiliate_code',
               env_name: 'affiliate.code'}
 
-The first cookie has a 14 day time to live and is accessible in <tt>request.env['referral.code']</tt>. The second has the default time to live, which is 30 days.
+The first cookie, +referral_code+ for parameter +ref+, has a 14 day time to live and is accessible in <tt>\request.env['referral.code']</tt>. The second, for parameter +aff+, has the default time to live, which is 30 days.
 
 == Installation
 
