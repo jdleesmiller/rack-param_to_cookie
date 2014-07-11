@@ -40,7 +40,15 @@ Or install directly
 
   gem install rack-param_to_cookie
 
-== LICENSE
+You can load it with
+
+  require 'rack/param_to_cookie'
+
+== Credits
+
+This middleware is mostly based on Rack::Affiliates (https://github.com/alexlevin/rack-affiliates); this middleware is just a bit more generic and configurable.
+
+== License
 
 (The MIT License)
 
