@@ -1,0 +1,11 @@
+.*.swp
+pkg/*
+*.gem
+.bundle
+/rcov
+/rdoc
+/yard
+/.yardoc
+/Gemfile.lock
+.ruby-version
+.ruby-gemset

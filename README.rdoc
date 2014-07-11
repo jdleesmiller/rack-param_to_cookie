@@ -1,0 +1,66 @@
+= Rack::ParamToCookie
+
+* https://github.com/jdleesmiller/rack-param_to_cookie
+
+== SYNOPSIS
+
+Rack::ParamToCookie is a rack middleware that extracts request parameters from requests and stores them in cookies for use in future requests. It's useful for affiliate, referral or promotion links, which often work something like:
+
+1. A referral partner puts a link on their site to somewhere on your site, and they include a request parameter like +ref+ so you can identify traffic from them, e.g. https://www.example.com/some-interesting-page?ref=123ABC
+1. A user clicks through the link and comes to your site.
+1. The Rack::ParamToCookie middleware finds the +ref+ parameter and stores it in a cookie for this user.
+1. The user browses around for a while and eventually signs up.
+1. Your signup action recovers the referral code, +123ABC+, from the cookie, and you mark it as a successful referral from your partner.
+1. $$$$!
+
+== Usage
+
+In a Rails app, you can add it as middleware in +config/application.rb+. For a parameter called +ref+, the basic usage is:
+
+  config.middleware.use 'Rack::ParamToCookie', 'ref' => {}
+  
+This tells Rack::ParamToCookie to capture a request parameter called +ref+, store it in a cookie called +ref+, and make it available in your rails app as <tt>request.env['ref']</tt>. You can specify multiple parameters and configure them. Here's a more in-depth example:
+
+  config.middleware.use 'Rack::ParamToCookie',
+    'ref' => {cookie_name: 'referral_code',
+              env_name: 'referral.code',
+              ttl: 14*24*60*60},
+    'aff' => {cookie_name: 'affiliate_code',
+              env_name: 'affiliate.code'}
+
+The first cookie has a 14 day time to live and is accessible in <tt>request.env['referral.code']</tt>. The second has the default time to live, which is 30 days.
+
+== Installation
+
+Add to your Gemfile
+
+  gem 'rack-param_to_cookie'
+
+Or install directly
+
+  gem install rack-param_to_cookie
+
+== LICENSE
+
+(The MIT License)
+
+Copyright (c) 2014 John Lees-Miller
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
