@@ -28,7 +28,7 @@ This tells Rack::ParamToCookie to capture a request parameter called +ref+, stor
     'aff' => {cookie_name: 'affiliate_code',
               env_name: 'affiliate.code'}
 
-The first cookie, +referral_code+ for parameter +ref+, has a 14 day time to live and is accessible in <tt>\request.env['referral.code']</tt>. The second, for parameter +aff+, has the default time to live, which is 30 days.
+The first cookie, +referral_code+ for parameter +ref+, has a 14 day time to live and is accessible in <tt>request.env\['referral.code']</tt>. The second, for parameter +aff+, has the default time to live, which is 30 days.
 
 == Installation
 
