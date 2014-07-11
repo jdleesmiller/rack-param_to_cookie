@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rack', '~> 1.4'
 
   s.add_development_dependency 'gemma', '~> 4.1.0'
+  s.add_development_dependency 'rack-test'
 
   s.files       = Dir.glob('{lib,bin}/**/*.rb') + %w(README.rdoc)
   s.test_files  = Dir.glob('test/rack/param_to_cookie/*_test.rb')
