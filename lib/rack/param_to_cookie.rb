@@ -17,7 +17,7 @@ module Rack
       @param_cookies.each do |param, options|
         options[:cookie_name] ||= param
         options[:env_name] ||= param
-        options[:ttl] ||= 60*60*24*30 # 30 days
+        options[:ttl] ||= 60 * 60 * 24 * 30 # 30 days
         options[:set_cookie_options] ||= {}
       end
     end
@@ -32,6 +32,10 @@ module Rack
 
         # check whether there's a new value for the cookie with this request
         params_value = req.params[param] rescue nil
+
+        if !params_value.nil? && params_value == options[:referral_value]
+          params_value = req.params[options[:referral_saved]] rescue nil
+        end
 
         value = params_value || cookie_value
         env[options[:env_name]] = value if value
