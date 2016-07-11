@@ -2,6 +2,8 @@
 
 * https://github.com/jdleesmiller/rack-param_to_cookie
 
+{<img src="https://secure.travis-ci.org/jdleesmiller/rack-param_to_cookie.png"/>}[http://travis-ci.org/jdleesmiller/rack-param_to_cookie]
+
 == SYNOPSIS
 
 Rack::ParamToCookie is a rack middleware that extracts request parameters from requests and stores them in cookies for use in future requests. It's useful for affiliate, referral or promotion links, which often work something like:
