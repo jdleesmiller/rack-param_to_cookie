@@ -60,7 +60,8 @@ describe "Rack::ParamToCookie" do
   describe "with multiple parameters and custom names" do
     before do
       make_app \
-        'ref' => {cookie_name: 'ref_cookie', env_name: 'ref.env', ttl: 10},
+        'ref' => {cookie_name: 'ref_cookie', env_name: 'ref.env', ttl: 10,
+                  max_length: 10},
         'aff' => {cookie_name: 'aff_cookie', env_name: 'aff.env', ttl: 20}
       clear_cookies
     end
@@ -130,6 +131,11 @@ describe "Rack::ParamToCookie" do
       assert_equal({'ref_cookie' => 'baz', 'aff_cookie' => 'bat'},
                    rack_mock_session.cookie_jar.to_hash)
       assert_equal nil, last_response.headers['Set-Cookie']
+    end
+
+    it "should not set cookies longer than the max length" do
+      get '/', ref: 'abcdefghijklmnopqrstuvwxyz'
+      assert_equal({}, rack_mock_session.cookie_jar.to_hash)
     end
   end
 end
