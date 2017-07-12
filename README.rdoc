@@ -20,17 +20,18 @@ Rack::ParamToCookie is a rack middleware that extracts request parameters from r
 In a Rails app, you can add it as middleware in +config/application.rb+. For a parameter called +ref+, the basic usage is:
 
   config.middleware.use 'Rack::ParamToCookie', 'ref' => {}
-  
+
 This tells Rack::ParamToCookie to capture a request parameter called +ref+, store it in a cookie called +ref+, and make it available in your rails app as <tt>request.env['ref']</tt>. You can specify multiple parameters and configure them. Here's a more in-depth example:
 
   config.middleware.use 'Rack::ParamToCookie',
     'ref' => {cookie_name: 'referral_code',
               env_name: 'referral.code',
-              ttl: 14*24*60*60},
+              ttl: 14*24*60*60,
+              max_length: 12},
     'aff' => {cookie_name: 'affiliate_code',
               env_name: 'affiliate.code'}
 
-The first cookie, +referral_code+ for parameter +ref+, has a 14 day time to live and is accessible in +request.env+ <tt>['referral.code']</tt>. The second, for parameter +aff+, has the default time to live, which is 30 days.
+The first cookie, +referral_code+ for parameter +ref+, has a 14 day time to live, can be a maximum of 12 characters and is accessible in +request.env+ <tt>['referral.code']</tt>. The second, for parameter +aff+, has the default time to live, which is 30 days and can be the default maximum length, which is 64 characters.
 
 == Installation
 
