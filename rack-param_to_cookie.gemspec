@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.summary           = %q{Store selected request parameters to cookies.}
   s.description       = %q{Store selected request parameters to cookies for use in future requests. Useful for affiliate, referral or promotion links.}
 
-  s.add_runtime_dependency 'rack', '~> 2'
+  s.add_runtime_dependency 'rack', '< 3'
 
   s.add_development_dependency 'gemma', '~> 4.1.0'
   s.add_development_dependency 'rack-test'
