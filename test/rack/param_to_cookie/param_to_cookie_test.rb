@@ -26,7 +26,7 @@ describe "Rack::ParamToCookie" do
     it "should do nothing when there is no ref parameter" do
       get '/'
 
-      assert_equal nil, last_request.env['ref']
+      assert_nil last_request.env['ref']
       assert_equal({}, rack_mock_session.cookie_jar.to_hash)
     end
 
@@ -41,7 +41,7 @@ describe "Rack::ParamToCookie" do
       get '/'
       assert_equal 'abc', last_request.env['ref']
       assert_equal({'ref' => 'abc'}, rack_mock_session.cookie_jar.to_hash)
-      assert_equal nil, last_response.headers['Set-Cookie']
+      assert_nil last_response.headers['Set-Cookie']
 
       # if we set it again, it gets overwritten
       get '/', ref: '123'
@@ -53,7 +53,7 @@ describe "Rack::ParamToCookie" do
       get '/'
       assert_equal '123', last_request.env['ref']
       assert_equal({'ref' => '123'}, rack_mock_session.cookie_jar.to_hash)
-      assert_equal nil, last_response.headers['Set-Cookie']
+      assert_nil last_response.headers['Set-Cookie']
     end
   end
 
@@ -69,8 +69,8 @@ describe "Rack::ParamToCookie" do
     it "should set ref and aff" do
       # initially no cookies
       get '/'
-      assert_equal nil, last_request.env['ref.env']
-      assert_equal nil, last_request.env['aff.env']
+      assert_nil last_request.env['ref.env']
+      assert_nil last_request.env['aff.env']
       assert_equal({}, rack_mock_session.cookie_jar.to_hash)
 
       # set both at the same time
@@ -96,7 +96,7 @@ describe "Rack::ParamToCookie" do
       assert_equal 'bar', last_request.env['aff.env']
       assert_equal({'ref_cookie' => 'foo', 'aff_cookie' => 'bar'},
                    rack_mock_session.cookie_jar.to_hash)
-      assert_equal nil, last_response.headers['Set-Cookie']
+      assert_nil last_response.headers['Set-Cookie']
 
       # update ref
       get '/', ref: 'baz'
@@ -113,7 +113,7 @@ describe "Rack::ParamToCookie" do
       assert_equal 'bar', last_request.env['aff.env']
       assert_equal({'ref_cookie' => 'baz', 'aff_cookie' => 'bar'},
                    rack_mock_session.cookie_jar.to_hash)
-      assert_equal nil, last_response.headers['Set-Cookie']
+      assert_nil last_response.headers['Set-Cookie']
 
       # update aff
       get '/', aff: 'bat'
@@ -130,7 +130,7 @@ describe "Rack::ParamToCookie" do
       assert_equal 'bat', last_request.env['aff.env']
       assert_equal({'ref_cookie' => 'baz', 'aff_cookie' => 'bat'},
                    rack_mock_session.cookie_jar.to_hash)
-      assert_equal nil, last_response.headers['Set-Cookie']
+      assert_nil last_response.headers['Set-Cookie']
     end
 
     it "should not set cookies longer than the max length" do
