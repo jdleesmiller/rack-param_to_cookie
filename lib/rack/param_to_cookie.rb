@@ -19,6 +19,7 @@ module Rack
         options[:env_name] ||= param
         options[:ttl] ||= 60*60*24*30 # 30 days
         options[:set_cookie_options] ||= {}
+        options[:max_length] ||= 64 # characters
       end
     end
 
@@ -32,6 +33,10 @@ module Rack
 
         # check whether there's a new value for the cookie with this request
         params_value = req.params[param] rescue nil
+
+        # validate the length of the value
+        params_value = nil if
+          params_value && params_value.length > options[:max_length]
 
         value = params_value || cookie_value
         env[options[:env_name]] = value if value
